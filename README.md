@@ -8,12 +8,23 @@ Built as a single `index.html` file — no frameworks or servers needed.
 
 Accessible from desktop, tablet, or phone.
 
+---
+
+## 📸 Screenshot
+Here’s what the app looks like in action:
+
+![App Screenshot](application_demo.png)
+![App Screenshot](application_results.png)
+---
+
 ## ✨ Features
 - 25-question randomized session every run  
 - Per-question timer (auto-reveals when time runs out)  
 - Randomized blank cell positions (top, bottom, diagonal)  
 - Score tracking and final result summary  
 - Lightweight — runs in the browser only  
+
+---
 
 ## 🚀 How to Run Locally
 1. Clone the repo:
