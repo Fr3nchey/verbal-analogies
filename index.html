@@ -1,67 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Verbal Analogies Practice (25-Question Session)</title>
-<style>
-  :root{
-    --bg:#f7f7f7; --card:#ffffff; --text:#1f2328; --muted:#6b7280; --accent:#2563eb;
-    --ok:#16a34a; --bad:#dc2626; --border:#e5e7eb; --border-strong:#d1d5db;
-    --btn:#f3f4f6; --btn-border:#e5e7eb; --btn-hover:#eef2ff;
-  }
-  *{ box-sizing:border-box; font-family:Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
-  body{ margin:0; background:var(--bg); color:var(--text); display:flex; min-height:100vh; align-items:flex-start; justify-content:center; }
-  .wrap{ width:min(980px,94vw); margin:28px auto 60px; }
-  header{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-  h1{ font-size:20px; margin:0; font-weight:600; }
-  .meta{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; color:var(--muted); font-size:14px; }
-  .pill{ padding:4px 10px; border-radius:999px; border:1px solid var(--border-strong); background:#fff; }
-  .card{ background:var(--card); border:1px solid var(--border-strong); border-radius:12px; padding:18px; box-shadow:0 6px 20px rgba(0,0,0,.06); }
-  .grid{ display:grid; grid-template-columns:1fr 1fr; border:1px solid var(--border-strong); border-radius:10px; overflow:hidden; margin-bottom:14px; }
-  .cell{ min-height:92px; display:flex; align-items:center; justify-content:center; padding:10px; text-align:center; border-right:1px solid var(--border-strong); border-bottom:1px solid var(--border-strong); }
-  .cell:nth-child(2n){ border-right:none; }
-  .cell:nth-last-child(-n+2){ border-bottom:none; }
-  .qmark{ color:var(--muted); font-style:italic; }
-  .options{ display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
-  .btn{ background:var(--btn); border:1px solid var(--btn-border); color:var(--text); padding:12px 10px; border-radius:10px; cursor:pointer; transition:.15s; font-weight:600; }
-  .btn:hover{ background:var(--btn-hover); border-color:#c7d2fe; }
-  .btn.selected{ outline:2px solid var(--accent); outline-offset:1px; }
-  .btn.correct{ background:#ecfdf5; border-color:#86efac; }
-  .btn.wrong{ background:#fef2f2; border-color:#fecaca; }
-  .actions{ display:flex; gap:10px; margin-top:14px; }
-  .action{ background:var(--accent); color:#fff; border:0; padding:12px 14px; border-radius:10px; font-weight:700; cursor:pointer; }
-  .action.secondary{ background:#fff; color:var(--text); border:1px solid var(--border-strong); }
-  .action:disabled{ opacity:.5; cursor:not-allowed; }
-  .explain{ margin-top:10px; color:var(--muted); font-size:14px; min-height:20px; }
-  .timer-bar-wrap{ margin:12px 0 2px; height:10px; background:#f1f5f9; border:1px solid var(--border); border-radius:999px; overflow:hidden; }
-  .timer-bar{ height:100%; width:100%; background:#34d399; transition:width .2s linear; }
-  .timer-row{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; color:var(--muted); font-size:14px; }
-
-  /* Results */
-  #results{ margin-top:18px; }
-  .res-card{ margin-top:14px; background:#fff; border:1px solid var(--border-strong); border-radius:12px; padding:16px; }
-  .res-summary{ display:flex; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
-  .res-summary .pill{ font-weight:600; }
-  table{ width:100%; border-collapse:collapse; }
-  th, td{ padding:8px 10px; border-bottom:1px solid var(--border); text-align:left; font-size:14px; }
-  th{ background:#f8fafc; }
-  .ok{ color:#16a34a; font-weight:700; }
-  .bad{ color:#dc2626; font-weight:700; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verbal Analogies Practice</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>Verbal Analogies – 25-Question Session</h1>
+      <h1>Verbal Analogies Practice</h1>
       <div class="meta">
-        <span class="pill" id="progress">1 / 25</span>
+        <span class="pill" id="progress">–</span>
         <span class="pill" id="score">Score: 0</span>
-        <span class="pill" id="perQ">Time: 00:15</span>
+        <span class="pill" id="perQ">Time: –</span>
       </div>
     </header>
 
-    <div class="card">
+    <!-- Welcome / Settings -->
+    <div id="welcome" class="card">
+      <p class="welcome-title">Welcome to the test</p>
+      <p class="welcome-sub">Choose how many questions and the time per question, then press <b>Start</b>.</p>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="qCount">Number of questions</label>
+          <select id="qCount">
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25" selected>25</option>
+            <option value="40">40</option>
+            <option value="80">80 (All)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="qTime">Time per question (seconds)</label>
+          <input id="qTime" type="number" min="5" max="60" step="1" value="15" />
+        </div>
+      </div>
+
+      <div class="actions" style="margin-top:16px;">
+        <button class="action" id="startBtn">Start</button>
+      </div>
+    </div>
+
+    <!-- Quiz Card -->
+    <div id="quizCard" class="card hidden">
       <div class="grid">
         <div class="cell" id="tl"></div>
         <div class="cell" id="tr"></div>
@@ -72,7 +58,7 @@
       <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
       <div class="timer-row">
         <div id="hint" class="small">Select two answers.</div>
-        <div id="timeLeft">15s remaining</div>
+        <div id="timeLeft">–</div>
       </div>
 
       <div class="options" id="options"></div>
@@ -81,7 +67,8 @@
         <button class="action secondary" id="resetBtn" title="Clear selections">Clear</button>
         <button class="action" id="checkBtn" disabled>Check</button>
         <button class="action secondary" id="nextBtn" disabled>Next</button>
-        <button class="action secondary" id="restartBtn" style="margin-left:auto;">New 25-Q Session</button>
+        <button class="action secondary" id="restartBtn" style="margin-left:auto;">New Session</button>
+        <button class="action secondary" id="settingsBtn">Edit settings</button>
       </div>
       <div class="explain" id="explain"></div>
     </div>
@@ -89,362 +76,7 @@
     <div id="results"></div>
   </div>
 
-<script>
-/*** CONFIG ***/
-const SECONDS_PER_QUESTION = 15; // adjust if you want faster/slower
-
-/*** FULL BANK (same as before; 80 total) ***/
-const QUESTIONS = [
-  // Set 1
-  { tl:"Canary", tr:"Bird", bl:"Goldfish", br:"Fish", note:"Category / Type-of." },
-  { tl:"Petal", tr:"Flower", bl:"Wheel", br:"Car", note:"Part ↔ Whole." },
-  { tl:"Study", tr:"Knowledge", bl:"Training", br:"Skill", note:"Cause → Effect." },
-  { tl:"Key", tr:"Lock", bl:"Pen", br:"Write", note:"Function / Purpose." },
-  // Set 2
-  { tl:"Length", tr:"Metre", bl:"Weight", br:"Kilo", note:"Measurement / Unit." },
-  { tl:"Big", tr:"Large", bl:"Smart", br:"Intelligent", note:"Synonyms." },
-  { tl:"Hot", tr:"Cold", bl:"Weak", br:"Strong", note:"Antonyms." },
-  { tl:"Monday", tr:"Tuesday", bl:"Spring", br:"Summer", note:"Sequence / Order." },
-  // Set 3
-  { tl:"Egg", tr:"Fry", bl:"Water", br:"Boil", note:"Object → Action." },
-  { tl:"Teacher", tr:"Teach", bl:"Doctor", br:"Heal", note:"Agent → Action." },
-  { tl:"Fire", tr:"Hot", bl:"Ice", br:"Cold", note:"Property / Quality." },
-  { tl:"Cat", tr:"Kitten", bl:"Dog", br:"Puppy", note:"Adult → Young." },
-  // Set 4
-  { tl:"Axe", tr:"Wood", bl:"Scissors", br:"Paper", note:"Tool → Material." },
-  { tl:"Crown", tr:"King", bl:"Flag", br:"Country", note:"Symbol → Meaning." },
-  { tl:"Hive", tr:"Bee", bl:"Nest", br:"Bird", note:"Location → Inhabitant." },
-  { tl:"Medicine", tr:"Cure", bl:"Poison", br:"Kill", note:"Opposite functions." },
-  // Set 5
-  { tl:"Question", tr:"Answer", bl:"Problem", br:"Solution", note:"Abstract mapping." },
-  { tl:"Shoe", tr:"Lace", bl:"Pen", br:"Ink", note:"Object → Associated thing." },
-  { tl:"Cow", tr:"Milk", bl:"Hen", br:"Egg", note:"Producer → Product." },
-  { tl:"Eat", tr:"Full", bl:"Work", br:"Money", note:"Action → Result." },
-  // Set 6
-  { tl:"Nose", tr:"Smell", bl:"Ear", br:"Hear", note:"Sense → Function." },
-  { tl:"Book", tr:"Read", bl:"Song", br:"Sing", note:"Object → Action." },
-  { tl:"King", tr:"Crown", bl:"Soldier", br:"Helmet", note:"Associated objects." },
-  { tl:"Night", tr:"Dark", bl:"Day", br:"Light", note:"Property / Quality." },
-  // Set 7
-  { tl:"Knife", tr:"Cut", bl:"Shovel", br:"Dig", note:"Function / Purpose." },
-  { tl:"Author", tr:"Book", bl:"Painter", br:"Canvas", note:"Producer → Medium." },
-  { tl:"Sun", tr:"Day", bl:"Moon", br:"Night", note:"Association / Sequence." },
-  { tl:"Rain", tr:"Cloud", bl:"Smoke", br:"Fire", note:"(Loose) association." },
-  // Set 8
-  { tl:"Finger", tr:"Hand", bl:"Toe", br:"Foot", note:"Part ↔ Whole." },
-  { tl:"Doctor", tr:"Hospital", bl:"Student", br:"School", note:"Agent → Location." },
-  { tl:"Question", tr:"Answer", bl:"Problem", br:"Solution", note:"Abstract mapping." },
-  { tl:"Winter", tr:"Cold", bl:"Summer", br:"Hot", note:"Season → Property." },
-  // Set 9
-  { tl:"Cat", tr:"Fur", bl:"Bird", br:"Feathers", note:"Animal → Covering." },
-  { tl:"Baby", tr:"Cry", bl:"Dog", br:"Bark", note:"Agent → Typical action." },
-  { tl:"Car", tr:"Engine", bl:"Computer", br:"CPU", note:"Object → Core part." },
-  { tl:"Cow", tr:"Grass", bl:"Car", br:"Fuel", note:"Consumer → Input." },
-  // Set 10
-  { tl:"Desert", tr:"Camel", bl:"Ocean", br:"Whale", note:"Location → Inhabitant." },
-  { tl:"Shoe", tr:"Foot", bl:"Glove", br:"Hand", note:"Object ↔ Body part." },
-  { tl:"Lock", tr:"Key", bl:"Password", br:"Login", note:"Access mechanism." },
-  { tl:"Painter", tr:"Brush", bl:"Writer", br:"Pen", note:"Agent → Tool." },
-  // Set 11
-  { tl:"Lightning", tr:"Thunder", bl:"Fire", br:"Smoke", note:"Cause → Effect." },
-  { tl:"Cat", tr:"Meow", bl:"Cow", br:"Moo", note:"Animal → Sound." },
-  { tl:"Eye", tr:"See", bl:"Ear", br:"Hear", note:"Sense organ → Function." },
-  { tl:"Heart", tr:"Beat", bl:"Clock", br:"Tick", note:"Object → Action." },
-  // Set 12
-  { tl:"Farmer", tr:"Field", bl:"Miner", br:"Mine", note:"Agent → Workplace." },
-  { tl:"Teacher", tr:"Classroom", bl:"Judge", br:"Court", note:"Agent → Workplace." },
-  { tl:"Bee", tr:"Honey", bl:"Hen", br:"Egg", note:"Producer → Product." },
-  { tl:"Tree", tr:"Leaf", bl:"Flower", br:"Petal", note:"Whole → Part." },
-  // Set 13
-  { tl:"Soldier", tr:"War", bl:"Doctor", br:"Hospital", note:"Agent → Domain." },
-  { tl:"River", tr:"Water", bl:"Road", br:"Cars", note:"Medium → What travels." },
-  { tl:"Fish", tr:"Swim", bl:"Bird", br:"Fly", note:"Agent → Motion." },
-  { tl:"Knife", tr:"Sharp", bl:"Pillow", br:"Soft", note:"Object → Property." },
-  // Set 14
-  { tl:"Author", tr:"Novel", bl:"Composer", br:"Symphony", note:"Creator → Work." },
-  { tl:"Clock", tr:"Time", bl:"Thermometer", br:"Temperature", note:"Instrument → Measure." },
-  { tl:"Pen", tr:"Ink", bl:"Candle", br:"Wax", note:"Object → Material." },
-  { tl:"Painter", tr:"Easel", bl:"Musician", br:"Stage", note:"Agent → Support/Place." },
-  // Set 15
-  { tl:"Student", tr:"Learn", bl:"Athlete", br:"Train", note:"Agent → Action." },
-  { tl:"Lion", tr:"Courage", bl:"Owl", br:"Wisdom", note:"Symbolic quality." },
-  { tl:"Mother", tr:"Child", bl:"Teacher", br:"Student", note:"Guardian/Mentor → Dependent." },
-  { tl:"Dentist", tr:"Teeth", bl:"Mechanic", br:"Car", note:"Professional → Object." },
-  // Set 16
-  { tl:"Knife", tr:"Cut", bl:"Needle", br:"Sew", note:"Tool → Function." },
-  { tl:"Painter", tr:"Paint", bl:"Sculptor", br:"Statue", note:"Creator → Work." },
-  { tl:"Finger", tr:"Ring", bl:"Wrist", br:"Watch", note:"Body part → Worn item." },
-  { tl:"Rain", tr:"Wet", bl:"Sun", br:"Dry", note:"Cause → Effect (environment)." },
-  // Set 17
-  { tl:"Doctor", tr:"Medicine", bl:"Chef", br:"Food", note:"Agent → Domain." },
-  { tl:"Pilot", tr:"Plane", bl:"Captain", br:"Ship", note:"Agent → Vehicle." },
-  { tl:"Dog", tr:"Bark", bl:"Bird", br:"Chirp", note:"Animal → Sound." },
-  { tl:"Lock", tr:"Secure", bl:"Alarm", br:"Warn", note:"Device → Purpose." },
-  // Set 18
-  { tl:"Author", tr:"Book", bl:"Singer", br:"Song", note:"Creator → Work." },
-  { tl:"Seed", tr:"Plant", bl:"Egg", br:"Bird", note:"Becomes → Outcome." },
-  { tl:"Fish", tr:"Gills", bl:"Human", br:"Lungs", note:"Animal → Organ." },
-  { tl:"Lightning", tr:"Flash", bl:"Explosion", br:"Boom", note:"Event → Sensory effect." },
-  // Set 19
-  { tl:"Toothbrush", tr:"Teeth", bl:"Comb", br:"Hair", note:"Tool → Target." },
-  { tl:"Carpenter", tr:"Wood", bl:"Mason", br:"Stone", note:"Worker → Material." },
-  { tl:"Knife", tr:"Chef", bl:"Stethoscope", br:"Doctor", note:"Tool → Professional." },
-  { tl:"Child", tr:"Play", bl:"Adult", br:"Work", note:"Stage → Activity." },
-  // Set 20
-  { tl:"Rose", tr:"Red", bl:"Sunflower", br:"Yellow", note:"Typical property." },
-  { tl:"North", tr:"South", bl:"East", br:"West", note:"Opposite directions." },
-  { tl:"Farmer", tr:"Harvest", bl:"Hunter", br:"Prey", note:"Agent → Outcome." },
-  { tl:"Battery", tr:"Power", bl:"Fuel", br:"Energy", note:"Source → Output." },
-];
-
-/* masks = which two cells will be blank this round */
-const MASKS = [
-  ["tl","tr"],["bl","br"],["tl","bl"],["tr","br"],["tl","br"],["tr","bl"]
-];
-
-/* distractor pool */
-const WORD_POOL = Array.from(new Set([
-  ...QUESTIONS.flatMap(q => [q.tl,q.tr,q.bl,q.br]),
-  "Light","Heavy","Small","Large","Fast","Slow","Leaf","Tree","Paper","Ink","Thread","Needle","Wood",
-  "Nurse","Clinic","Patient","Medicine","Cloud","Engine","Keyboard","Screen","Bottle","Tap","Wash","Water",
-  "Celsius","Litre","Scale","Minutes","Hours","Gram","Pound","Road","Map","Travel","Forest","Root","Camera","Photo"
-]));
-
-/*** SESSION STATE ***/
-let session = null; // { order, subset, idx, score, results[] }
-let selected = new Set();
-let timer=null, time=SECONDS_PER_QUESTION;
-let mask=["bl","br"];
-
-/*** HELPERS ***/
-function $(id){ return document.getElementById(id); }
-function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-function sample(arr,n,exclude=new Set()){
-  const pool = arr.filter(x=>!exclude.has(x));
-  const out=[];
-  while(out.length<n && pool.length){
-    out.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0]);
-  }
-  return out;
-}
-function fmt(s){ return String(s).padStart(2,'0'); }
-
-/*** SESSION MGMT ***/
-function startSession(){
-  const order = shuffle([...Array(QUESTIONS.length).keys()]);
-  const subset = order.slice(0,25).map(i => QUESTIONS[i]); // random 25
-  session = { order, subset, idx:0, score:0, results:[] };
-  $("results").innerHTML = "";
-  render();
-}
-
-/*** RENDER ***/
-function render(){
-  clearTimer();
-  selected.clear();
-  $("checkBtn").disabled = true;
-  $("nextBtn").disabled = true;
-  $("resetBtn").disabled = false;
-  $("explain").textContent = "";
-  $("hint").textContent = "Select two answers.";
-
-  const q = session.subset[session.idx];
-  mask = MASKS[Math.floor(Math.random()*MASKS.length)];
-
-  $("progress").textContent = `${session.idx+1} / ${session.subset.length}`;
-  $("score").textContent = `Score: ${session.score}`;
-
-  // Fill all cells then blank masked ones
-  $("tl").textContent = q.tl;
-  $("tr").textContent = q.tr;
-  $("bl").textContent = q.bl;
-  $("br").textContent = q.br;
-  for(const id of mask){ $(id).innerHTML = `<span class="qmark">?</span>`; }
-
-  // Build options: 2 missing + 4 distractors
-  const missing = mask.map(id => q[id]);
-  const distractors = sample(WORD_POOL, 14, new Set(missing))
-    .filter(w => ![q.tl,q.tr,q.bl,q.br].includes(w))
-    .slice(0,4);
-  const opts = shuffle([...missing, ...distractors]);
-
-  const cont = $("options"); cont.innerHTML = "";
-  for(const w of opts){
-    const b = document.createElement("button");
-    b.className = "btn";
-    b.textContent = w;
-    b.onclick = () => toggle(b,w);
-    cont.appendChild(b);
-  }
-
-  // timer
-  time = SECONDS_PER_QUESTION;
-  $("perQ").textContent = `Time: 00:${fmt(time)}`;
-  $("timeLeft").textContent = `${time}s remaining`;
-  $("timerBar").style.width = "100%";
-  timer = setInterval(tick,1000);
-}
-
-function toggle(btn, w){
-  if (btn.classList.contains("correct") || btn.classList.contains("wrong")) return;
-  if (selected.has(w)) { selected.delete(w); btn.classList.remove("selected"); }
-  else {
-    if (selected.size === 2) return;
-    selected.add(w); btn.classList.add("selected");
-  }
-  $("checkBtn").disabled = (selected.size !== 2);
-}
-
-function check(){ reveal(false); }
-
-function reveal(timeoutTriggered){
-  clearTimer();
-  const q = session.subset[session.idx];
-  const must = new Set(mask.map(id => q[id]));
-  const chosen = Array.from(selected);
-  const correctCount = chosen.filter(w => must.has(w)).length;
-  const correct = (!timeoutTriggered && correctCount === 2);
-
-  // decorate options
-  [...$("options").children].forEach(btn=>{
-    const w = btn.textContent;
-    if (must.has(w)) btn.classList.add("correct");
-    if (selected.has(w) && !must.has(w)) btn.classList.add("wrong");
-    btn.classList.remove("selected");
-  });
-
-  // reveal into masked cells
-  for(const id of mask){ $(id).textContent = q[id]; }
-
-  if (correct) session.score++;
-  $("score").textContent = `Score: ${session.score}`;
-  $("explain").textContent = q.note || "";
-  $("checkBtn").disabled = true;
-  $("nextBtn").disabled = false;
-  $("resetBtn").disabled = true;
-
-  // store result row
-  session.results.push({
-    idx: session.idx+1,
-    q,
-    mask: [...mask],
-    chosen,
-    correct,
-    timeSpent: SECONDS_PER_QUESTION - time
-  });
-}
-
-function nextQ(){
-  session.idx++;
-  if (session.idx >= session.subset.length){
-    showResults();
-  } else {
-    render();
-  }
-}
-
-function resetSel(){
-  selected.clear();
-  [...$("options").children].forEach(b=>b.classList.remove("selected","correct","wrong"));
-  $("checkBtn").disabled = true;
-}
-
-function tick(){
-  time--;
-  const pct = Math.max(0, time/SECONDS_PER_QUESTION)*100;
-  $("timerBar").style.width = pct+"%";
-  $("perQ").textContent = `Time: 00:${fmt(Math.max(0,time))}`;
-  $("timeLeft").textContent = `${Math.max(0,time)}s remaining`;
-  if (time <= 0){
-    $("hint").textContent = "Time’s up. Correct answers shown.";
-    reveal(true);
-  }
-}
-function clearTimer(){ if (timer){ clearInterval(timer); timer=null; } }
-
-/*** RESULTS ***/
-function showResults(){
-  clearTimer();
-  // Build summary
-  const total = session.subset.length;
-  const score = session.score;
-  const pct = Math.round((score/total)*100);
-
-  const res = document.createElement("div");
-  res.id = "results";
-  res.innerHTML = `
-    <div class="res-card">
-      <div class="res-summary">
-        <span class="pill">Session complete</span>
-        <span class="pill">Score: <b>${score}</b> / ${total}</span>
-        <span class="pill">Accuracy: <b>${pct}%</b></span>
-        <span class="pill">Per-question time: ${SECONDS_PER_QUESTION}s</span>
-      </div>
-      <div class="small" style="color:${getComputedStyle(document.body).getPropertyValue('--muted')}; margin-bottom:8px;">
-        Correct answers are shown in the grid; <b>Your picks</b> listed in the last column.
-      </div>
-      <div style="overflow:auto;">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Top (TL → TR)</th>
-              <th>Bottom (BL → BR)</th>
-              <th>Blank cells</th>
-              <th>Result</th>
-              <th>Your picks</th>
-              <th>Time (s)</th>
-            </tr>
-          </thead>
-          <tbody id="resRows"></tbody>
-        </table>
-      </div>
-    </div>
-  `;
-  $("results").innerHTML = ""; // clear old
-  $("results").appendChild(res);
-
-  const tbody = document.getElementById("resRows");
-  tbody.innerHTML = session.results.map(r=>{
-    const blankStr = r.mask.join(" & ").toUpperCase();
-    const top = `${r.q.tl} → ${r.q.tr}`;
-    const bottom = `${r.q.bl} → ${r.q.br}`;
-    const pick = (r.chosen.length? r.chosen.join(" + ") : "—");
-    const resTxt = r.correct ? `<span class="ok">Correct</span>` : `<span class="bad">Wrong</span>`;
-    return `<tr>
-      <td>${r.idx}</td>
-      <td>${escapeHtml(top)}</td>
-      <td>${escapeHtml(bottom)}</td>
-      <td>${blankStr}</td>
-      <td>${resTxt}</td>
-      <td>${escapeHtml(pick)}</td>
-      <td>${r.timeSpent}</td>
-    </tr>`;
-  }).join("");
-
-  // lock UI
-  ["tl","tr","bl","br"].forEach(id=>$(id).style.opacity=".5");
-  $("options").innerHTML = "";
-  $("hint").textContent = "Session finished. Review your results below or start a new session.";
-  $("checkBtn").disabled = true;
-  $("nextBtn").disabled = true;
-  $("resetBtn").disabled = true;
-}
-
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, m =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m])
-  );
-}
-
-/*** WIRE ***/
-document.getElementById("checkBtn").addEventListener("click", check);
-document.getElementById("nextBtn").addEventListener("click", nextQ);
-document.getElementById("resetBtn").addEventListener("click", resetSel);
-document.getElementById("restartBtn").addEventListener("click", startSession);
-
-// Init
-startSession();
-</script>
+  <!-- ES modules -->
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
