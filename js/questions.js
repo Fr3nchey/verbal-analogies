@@ -100,6 +100,34 @@ export const QUESTIONS = [
   { tl:"North", tr:"South", bl:"East", br:"West", note:"Opposite directions." },
   { tl:"Farmer", tr:"Harvest", bl:"Hunter", br:"Prey", note:"Agent → Outcome." },
   { tl:"Battery", tr:"Power", bl:"Fuel", br:"Energy", note:"Source → Output." },
+   // --- Set 21 ---
+  { tl:"Sometimes", tr:"Always", bl:"Maybe", br:"Sure", note:"Opposites: frequency & certainty." },
+  { tl:"Books", tr:"Houses", bl:"Publisher", br:"Estate Agent", note:"Agent → Objects handled." },
+  { tl:"Blade of grass", tr:"Lawn", bl:"Tree", br:"Forest", note:"Unit → Collection." },
+  { tl:"Prince", tr:"King", bl:"Caterpillar", br:"Butterfly", note:"Stage → Mature form." },
+  // --- Set 22 ---
+  { tl:"Sock", tr:"Foot", bl:"Trousers", br:"Legs", note:"Clothing → Body part." },
+  { tl:"Arms", tr:"Legs", bl:"Hands", br:"Feet", note:"Limb ↔ Extremity pairs." },
+  { tl:"Candle", tr:"Radio", bl:"Light", br:"Noise", note:"Source → Output (produces)." },
+  { tl:"Hundred", tr:"Thousand", bl:"Big", br:"Bigger", note:"Increase / progression." },
+  // --- Set 23 ---
+  { tl:"South", tr:"West", bl:"Under", br:"Left", note:"Direction ↔ relative position." },
+  { tl:"Circle", tr:"Sphere", bl:"Square", br:"Cube", note:"2D → 3D counterpart." },
+  { tl:"Bulb", tr:"Tulip", bl:"Boy", br:"Man", note:"Young → Adult." },
+  { tl:"Cobblestones", tr:"Road", bl:"Houses", br:"City", note:"Parts → Whole." },
+  // --- Set 24 ---
+  { tl:"Shortage", tr:"Easy", bl:"Abundance", br:"Difficult", note:"Antonyms by column." },
+  { tl:"Mouse", tr:"Tail", bl:"House", br:"Roof", note:"Whole → Part." },
+  { tl:"Schoolgirl", tr:"Child", bl:"Teacher", br:"Schoolmistress", note:"Student ↔ Teacher roles." },
+  { tl:"Scent", tr:"Colour", bl:"To smell", br:"To see", note:"Perceptible quality ↔ Sense." },
+  // --- Set 25 ---
+  { tl:"Eight", tr:"Two", bl:"Young", br:"Younger", note:"Number ↔ age descriptor mapping." },
+  { tl:"Amateur", tr:"Beginner", bl:"Professional", br:"Expert", note:"Skill levels: novice vs. advanced." },
+  { tl:"Sheep", tr:"Flock", bl:"Trees", br:"Forest", note:"Collective nouns." },
+  { tl:"Pilot", tr:"Air Hostess", bl:"Director", br:"Secretary", note:"Occupational pairs." },
+  // --- Set 26 ---
+  { tl:"Coffee", tr:"Coffee beans", bl:"Bread", br:"Flour", note:"Product ↔ Ingredient." },
+  { tl:"Big", tr:"Bigger", bl:"Many", br:"More", note:"Base → Comparative." },
 ];
 
 // Build distractor pool once from the bank + a few extras.
