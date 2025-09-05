@@ -13,8 +13,8 @@ Accessible from desktop, tablet, or phone.
 ## 📸 Screenshot
 Here’s what the app looks like in action:
 
-![App Screenshot](img\application_demo.png)
-![App Screenshot](img\application_results.png)
+![App Screenshot](img/application_demo.png)
+![App Screenshot](img/application_results.png)
 ---
 
 ## ✨ Features
